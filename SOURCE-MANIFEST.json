@@ -7,9 +7,14 @@
       "sha256": "52be12d2441816dbcbe7944ab3e8a56e87b966e5d20f7c762d1d856dd91b8299"
     },
     {
+      "file": "LICENSE",
+      "bytes": 1068,
+      "sha256": "0bce3f0e06b0bb6cac4e93e05076234f7b2c0355435f851b032ebb354b8bb1e8"
+    },
+    {
       "file": "README.md",
-      "bytes": 4296,
-      "sha256": "93699ddf1f086000d495d4cee2b2e668cab0f67ce7a60b04f20593cec1bcc4eb"
+      "bytes": 4539,
+      "sha256": "4beb9619363322fa6f4eb43e89cb6b7d8259ac33354829f4e75d13638913f15a"
     },
     {
       "file": "assets/tray.png",
@@ -18,23 +23,23 @@
     },
     {
       "file": "package-lock.json",
-      "bytes": 7231,
-      "sha256": "6228fb3c5486b15f981a63a3ea7950aaf2b547d792f18d459c4c1eab19237590"
+      "bytes": 7255,
+      "sha256": "993fb0cde8dba969f963da449e216c6c52777dbe401bf18dfcd21f70c1db511c"
     },
     {
       "file": "package.json",
-      "bytes": 1967,
-      "sha256": "3bef5ec491738f6b9416ad6a4d1262655e0e8eed427813903d64bbf53ff0cb30"
+      "bytes": 1986,
+      "sha256": "4854655cbab179bad41a63f90eb14ffe9bc4dd753981edc7d8c84b4fc234f55c"
     },
     {
       "file": "scripts/build-portable.cjs",
-      "bytes": 2538,
-      "sha256": "de698202faaf1e4c27bbbf88a0a5d8b8b8e8dcfdd1ef4f88c6a0f0d31dc895d9"
+      "bytes": 2919,
+      "sha256": "a294abe004df977ec4e1c34d49f6afd793c40c527c5c75fe4dcdb543a7cb00e4"
     },
     {
       "file": "scripts/prepare-github.cjs",
-      "bytes": 4519,
-      "sha256": "87621666886e07c7355ec1a1d4f44116a1e881028a7c7ef8969f132bdfc6c045"
+      "bytes": 4548,
+      "sha256": "8981c2b49cec86f5d2ee495c7397b2c9ecd84ee2498df4caf744ce86b48f3111"
     },
     {
       "file": "src/ai-prompts.cjs",

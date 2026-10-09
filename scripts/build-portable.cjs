@@ -3,6 +3,7 @@ const root=path.resolve(__dirname,'..'),pkg=JSON.parse(fs.readFileSync(path.join
 const output=path.join(root,'dist',`PaperDesk-${pkg.version}-win32-x64`);
 if(!output.startsWith(root+path.sep+'dist'+path.sep))throw Error('打包路径超出项目目录');
 if(!fs.existsSync(path.join(root,'node_modules/electron/dist/electron.exe')))throw Error('缺少 Electron 运行时，请先安装依赖');
+if(!fs.existsSync(path.join(root,'LICENSE'))||pkg.license!=='MIT')throw Error('缺少项目 MIT 许可证或项目许可配置');
 fs.mkdirSync(path.join(root,'assets'),{recursive:true});
 const size=32,raw=Buffer.alloc((size*4+1)*size);
 for(let y=0;y<size;y++)for(let x=0;x<size;x++){
@@ -22,7 +23,10 @@ function copyTree(source,target){fs.mkdirSync(target,{recursive:true});for(const
 copyTree(path.join(root,'node_modules/electron/dist'),output);
 const app=path.join(output,'resources','app');fs.mkdirSync(app,{recursive:true});
 for(const dir of ['src','assets'])copyTree(path.join(root,dir),path.join(app,dir));
-fs.writeFileSync(path.join(app,'package.json'),JSON.stringify({name:pkg.name,version:pkg.version,description:pkg.description,main:pkg.main},null,2));
+fs.writeFileSync(path.join(app,'package.json'),JSON.stringify({name:pkg.name,version:pkg.version,license:pkg.license,description:pkg.description,main:pkg.main},null,2));
+fs.copyFileSync(path.join(root,'LICENSE'),path.join(app,'LICENSE'));
+// Keep Electron's LICENSE and Chromium notices intact at the bundle root.
+fs.copyFileSync(path.join(root,'LICENSE'),path.join(output,'LICENSE-paper-fish.txt'));
 fs.copyFileSync(path.join(root,'使用说明.md'),path.join(output,'使用说明.md'));
 fs.renameSync(path.join(output,'electron.exe'),path.join(output,'PaperDesk.exe'));
 console.log(output);

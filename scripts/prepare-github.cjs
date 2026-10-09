@@ -4,7 +4,7 @@ const path=require('node:path');
 const crypto=require('node:crypto');
 const root=path.resolve(__dirname,'..');
 const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
-const files=['.gitignore','package.json','package-lock.json','README.md','使用说明.md','项目验收清单.md','性能与内存评估.md','桌面便签本项目需求说明.md','启动便签.cmd','assets/tray.png','scripts/build-portable.cjs','scripts/prepare-github.cjs'];
+const files=['.gitignore','LICENSE','package.json','package-lock.json','README.md','使用说明.md','项目验收清单.md','性能与内存评估.md','桌面便签本项目需求说明.md','启动便签.cmd','assets/tray.png','scripts/build-portable.cjs','scripts/prepare-github.cjs'];
 const textExtensions=new Set(['.cjs','.js','.json','.md','.html','.css','.ps1','.cmd']);
 function collect(relative){
   const absolute=path.join(root,relative);
@@ -31,7 +31,7 @@ const findings=[];
 for(const relative of files){
   const absolute=path.join(root,relative),stat=fs.lstatSync(absolute);
   if(!stat.isFile()||stat.isSymbolicLink())throw Error('Not a regular source file: '+relative);
-  if(!textExtensions.has(path.extname(relative)))continue;
+  if(relative!=='LICENSE'&&!textExtensions.has(path.extname(relative)))continue;
   const text=fs.readFileSync(absolute,'utf8');
   for(const [kind,pattern] of detectors){
     pattern.lastIndex=0;
@@ -69,6 +69,6 @@ const manifest=files.sort().map(relative=>{
   return {file:relative,bytes:content.length,sha256:crypto.createHash('sha256').update(content).digest('hex')};
 });
 fs.writeFileSync(path.join(output,'SOURCE-MANIFEST.json'),JSON.stringify({version:pkg.version,files:manifest},null,2)+'\n');
-const report={version:pkg.version,directory:path.relative(root,output),sourceFiles:manifest.length,totalBytes:manifest.reduce((n,f)=>n+f.bytes,0),findings,excluded:['user data','credentials','.env','.npmrc','node_modules','dist','test-results','video-promo','git history','other unlisted files'],license:'not selected',remoteCreated:false,uploaded:false};
+const report={version:pkg.version,directory:path.relative(root,output),sourceFiles:manifest.length,totalBytes:manifest.reduce((n,f)=>n+f.bytes,0),findings,excluded:['user data','credentials','.env','.npmrc','node_modules','dist','test-results','video-promo','git history','other unlisted files'],license:pkg.license,remoteCreated:false,uploaded:false};
 fs.writeFileSync(path.join(parent,'upload-check-'+path.basename(output)+'.json'),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify(report,null,2));

@@ -2,6 +2,7 @@
   "name": "paper-desk",
   "version": "0.13.1",
   "private": true,
+  "license": "MIT",
   "description": "纸想摸鱼 · 桌面便签本",
   "main": "src/main.cjs",
   "scripts": {
