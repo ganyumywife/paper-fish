@@ -103,8 +103,8 @@
     },
     {
       "file": "src/main.cjs",
-      "bytes": 50185,
-      "sha256": "127155a8059e8e993955fa2cd27235e6cd3ebf7a095dcbb2dea5a6a930da3fbf"
+      "bytes": 50467,
+      "sha256": "90339d4ca48f18a5d401dc19002f0e84ecd5e921d7749987305caeebd23cabf0"
     },
     {
       "file": "src/model.cjs",

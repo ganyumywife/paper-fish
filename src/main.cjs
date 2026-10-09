@@ -286,7 +286,12 @@ ipcMain.handle('desk', async (e, action, p = {}) => {
   if(action==='state'||action==='object-state'){const value=action==='object-state'?windowStateView(w):publicState();w.stateChannel??=StateSync.channel();w.stateChannel.next(windowStateView(w));return {...value,visual:w.motionVisual,loadedBallId,windowInfo:windowInfo(w)};}
   if(action==='shortcuts'){
     let previous;
-    try{await commit(s=>{previous=shortcutManager.current();const next=shortcutManager.apply(p.shortcuts);s.settings={...s.settings,shortcuts:next};});}catch(err){if(previous)shortcutManager.apply(previous);throw err;}
+    try{await commit(s=>{previous=shortcutManager.current();const next=shortcutManager.apply(p.shortcuts);s.settings={...s.settings,shortcuts:next};});}catch(err){
+      // Validation/registration failures already keep or restore the active keys.
+      // Only undo a successful registration followed by a failed data write.
+      if(previous&&JSON.stringify(previous)!==JSON.stringify(shortcutManager.current()))shortcutManager.apply({toggle:'',new:'',search:'',...previous});
+      throw err;
+    }
     broadcast();return publicState();
   }
   if(action==='desktop-preferences'){
