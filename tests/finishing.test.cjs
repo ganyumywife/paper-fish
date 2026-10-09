@@ -1,0 +1,4 @@
+const test=require('node:test'),assert=require('node:assert/strict');
+const {initial,change}=require('../src/model.cjs'),{exportBackup,importBackup}=require('../src/backup.cjs'),{samples}=require('../src/sound.js');
+test('撕下时间通过还原和备份保留，旧页不伪造撕下时间',()=>{const s=initial(),p=s.pages[0];assert.equal(p.tornAt,undefined);change(s,p.id,'ball');const torn=p.tornAt;assert(Number.isFinite(torn));change(s,p.id,'trash');change(s,p.id,'book');assert.equal(p.tornAt,torn);p.paperSize={width:420,height:500};const restored=importBackup(initial(),exportBackup(s)).pages[0];assert.equal(restored.tornAt,torn);assert.deepEqual(restored.paperSize,p.paperSize);});
+test('合成音效非空且限幅，未知音效不播放',()=>{for(const type of ['tear','crumple','unfold','land','launch','bin']){const data=samples(type);assert(data.length>1000);assert(data.some(v=>Math.abs(v)>.01));assert(data.every(v=>Number.isFinite(v)&&Math.abs(v)<=.3));}assert.equal(samples('unknown'),null);});

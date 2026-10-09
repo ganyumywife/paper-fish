@@ -1,0 +1,29 @@
+node_modules/
+.npm-cache/
+dist/
+*.log
+test-results/
+
+# Local data and credentials must never be committed.
+.env
+.env.*
+!.env.example
+api-key.enc
+api-key.enc.*
+notes.json
+notes.json.*
+user-data/
+profiles/
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.db
+.npmrc
+
+# Publishing copies and production media stay outside the source repository.
+github-upload/
+video-promo/
+*.zip

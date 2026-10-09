@@ -1,0 +1,5 @@
+const test=require('node:test'),assert=require('node:assert/strict');
+const {initial,change}=require('../src/model.cjs'),{exportBackup,importBackup}=require('../src/backup.cjs');
+test('备份只含页面，不泄露 API 配置或密钥',()=>{const s=initial();s.settings.apiKey='secret';s.settings.base='https://private.example';const serialized=JSON.stringify(exportBackup(s));assert(!serialized.includes('secret'));assert(!serialized.includes('private.example'));});
+test('重复导入为新页面，不覆盖原文且状态保留',()=>{const s=initial();s.pages[0].text='原文';change(s,s.pages[0].id,'ball');const backup=exportBackup(s),merged=importBackup(s,backup);assert.equal(merged.pages.length,s.pages.length*2);assert.equal(new Set(merged.pages.map(p=>p.id)).size,merged.pages.length);assert.equal(merged.pages[0].status,'ball');assert.equal(s.pages[0].text,'原文');});
+test('拒绝损坏备份，保留原状态',()=>{const s=initial(),before=JSON.stringify(s);assert.throws(()=>importBackup(s,{format:'paper-desk-backup',version:1,pages:[{id:'x',status:'book',text:{}}]}));assert.equal(JSON.stringify(s),before);});

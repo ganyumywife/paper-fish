@@ -1,0 +1,19 @@
+{
+  "name": "paper-desk",
+  "version": "0.13.1",
+  "private": true,
+  "description": "纸想摸鱼 · 桌面便签本",
+  "main": "src/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test tests/*.test.cjs",
+    "check": "node --check src/main.cjs && node --check src/ai-prompts.cjs && node --check src/renderer.js && node --check src/model.cjs && node --check src/desktop.cjs && node --check src/object.js && node --check src/desktop-interaction.js && node --check src/paper-motion.js && node --check src/aim.js && node --check src/image-editor.js && node --check src/backup.cjs && node --check src/shell.js && node --check src/layout.cjs && node --check src/rich-text.js && node --check src/note-editor.js && node --check src/pagination.js && node --check src/shortcuts.cjs && node --check src/workflow.js && node --check src/visibility.cjs && node --check src/fullscreen.cjs && node --check src/physics.cjs && node --check src/sound.js && node --check src/page-info.js && node --check src/paper-shape.js && node --check src/toy-physics.js && node --check src/persistence.cjs && node --check src/state-sync.js",
+    "test:desktop": "node tests/desktop.e2e.cjs && node tests/surface.e2e.cjs && node tests/animation.e2e.cjs && node tests/sling.e2e.cjs && node tests/features.e2e.cjs && node tests/shell.e2e.cjs && node tests/advance.e2e.cjs && node tests/hover.e2e.cjs && node tests/rich.e2e.cjs && node tests/side-switch.e2e.cjs && node tests/workflow.e2e.cjs && node tests/monitor.e2e.cjs && node tests/fullscreen.e2e.cjs && node tests/finishing.e2e.cjs && node tests/shapes.e2e.cjs && node tests/shape-layout.e2e.cjs && node tests/paper-drag.e2e.cjs && node tests/zoom.e2e.cjs && node tests/performance.e2e.cjs",
+    "build:portable": "node scripts/build-portable.cjs",
+    "prepare:github": "node scripts/prepare-github.cjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "electron": "^42.0.0"
+  }
+}

@@ -1,0 +1,137 @@
+/* Transparent desktop shell: the paper and its side tools have separate space. */
+#side-menu,#orb,#resize-left{display:none}
+body:is(.book,.pinned) #workspace{position:absolute;left:var(--paper-x,44px);top:0;width:var(--paper-w,370px);height:var(--paper-h,470px);transform-origin:center}
+body:is(.book,.pinned) header{left:calc(var(--paper-x,44px) + var(--paper-w,370px) - 12px);right:auto;top:12px;width:max-content;height:28px;padding:0;transform:translateX(-100%);pointer-events:none;-webkit-app-region:no-drag}
+body:is(.book,.pinned) header>*{display:none}
+/* Floating actions have no shared plate and no transparent native drag region. */
+body:is(.book,.pinned) header{justify-content:flex-end}
+body:is(.book,.pinned) header #side-controls{display:flex;align-items:center;gap:4px;margin:0;padding:0;border:0;pointer-events:none;-webkit-app-region:no-drag}
+body:is(.book,.pinned) header #side-controls button{display:flex;align-items:center;justify-content:center;width:28px;height:28px;min-height:28px;padding:0;font-size:18px;color:#706b59;border-radius:8px;background:#faf8f155;opacity:.3;pointer-events:auto;transition:opacity .15s ease,background-color .15s ease;-webkit-app-region:no-drag}
+body:is(.book,.pinned) header #side-controls #settings{margin-left:0;font-size:16px}
+body:is(.book,.pinned) header:is(:hover,:focus-within) #side-controls button{opacity:1;background:#faf8f1ed}
+body:is(.book,.pinned) header #side-controls button:is(:hover,:focus-visible){opacity:1;background:#faf8f1ed}
+body:is(.book,.pinned) header #side-controls button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+body:is(.book,.pinned) #top[aria-pressed=true] svg{fill:#7c89602e}
+.paper-animating header #side-controls button{pointer-events:none!important;opacity:.15!important}
+body:is(.book,.pinned) #tools{position:absolute;left:var(--button-x);top:var(--button-y);width:36px;height:36px;padding:0;border-radius:50%;background:#eee9d7d9;color:#746c51;box-shadow:0 2px 7px #302b1920;opacity:.72;z-index:25;-webkit-app-region:no-drag;font-size:22px}
+body:is(.book,.pinned) #tools:is(:hover,:focus-visible,.pinned){opacity:1;background:#f7f3e7}
+body:is(.book,.pinned) #tools{transition:opacity .15s ease,background-color .15s ease}
+body:is(.book,.pinned) #side-menu{position:absolute;top:12px;bottom:14px;width:calc(var(--gutter) - 48px);padding:10px;background:#f8f6eeed;border:1px solid #ddd7c7aa;border-radius:14px;overflow:auto;z-index:22;box-shadow:0 3px 10px #302b1918}
+body[data-side=left] #side-menu{left:calc(var(--paper-x) - var(--gutter) + 4px)}body[data-side=right] #side-menu{left:calc(var(--paper-x) + var(--paper-w) + 44px)}
+body:is(.book,.pinned).tools-open #side-menu{display:block}
+#side-menu #toolbar,#side-menu .appearance,#side-menu footer{display:flex;position:static;margin:0 0 12px;padding:0;background:none;border:0;box-shadow:none;flex-wrap:wrap;gap:6px}
+#side-menu #toolbar button{font-size:12px;padding:7px 8px;background:#eceade;flex:1 0 42%}
+#side-menu #toolbar #settings{margin:0}#side-controls{display:flex;gap:5px;border-bottom:1px solid #ded9c8;padding-bottom:9px}
+#side-menu label{font-size:11px;margin:10px 0}#side-menu label select{width:100%;margin-top:5px}#side-menu footer #save-state{position:static;display:block;flex-basis:100%;order:5;font-size:10px;margin-top:6px}
+body:is(.book,.pinned) #text{padding:25px 23px 42px}
+body:is(.book,.pinned) .page-heading{left:12px;right:auto;top:14px;bottom:auto;z-index:6;pointer-events:none}
+body:is(.book,.pinned) .page-heading>div{opacity:.3;transition:opacity .15s ease;pointer-events:auto}
+body:is(.book,.pinned) .page-heading>div:is(:hover,:focus-within){opacity:1}
+body.pinned .page-heading{display:none}
+body:is(.book,.pinned) #resize-handle,body:is(.book,.pinned) #resize-left{display:block;position:absolute;top:calc(var(--paper-h) - 43px);bottom:auto;width:26px;height:26px;padding:0;z-index:18;touch-action:none;color:#958968;opacity:.45}
+body:is(.book,.pinned) #resize-handle{left:calc(var(--paper-x) + var(--paper-w) - 37px);right:auto;cursor:nwse-resize}
+body:is(.book,.pinned) #resize-left{left:calc(var(--paper-x) + 12px);cursor:nesw-resize}
+body:is(.book,.pinned) #resize-handle:hover,body:is(.book,.pinned) #resize-left:hover{opacity:1;background:#fff4}
+body:is(.book,.pinned) :is(#resize-handle,#resize-left){opacity:0;transition:opacity .15s ease,background-color .15s ease}
+body:is(.book,.pinned):has(#paper:hover) :is(#resize-handle,#resize-left){opacity:.65}
+body:is(.book,.pinned) :is(#resize-handle,#resize-left):is(:hover,:focus-visible){opacity:1;background:#fff6}
+body:is(.book,.pinned).locked header{-webkit-app-region:no-drag}
+body:is(.book,.pinned).locked :is(#resize-left,#resize-handle){display:none}
+body:is(.book,.pinned).collapsed :is(header,#tools,#side-menu,#resize-handle,#resize-left){display:none}
+body:is(.book,.pinned).collapsed #orb{display:flex;position:absolute;inset:6px;align-items:center;justify-content:center;gap:1px;border:1px solid #d9d2b8;border-radius:50%;background:radial-gradient(circle at 30% 24%,#fffdf3,#e8dfbc);box-shadow:0 3px 5px #352c222b;font-size:15px;color:#716f53;cursor:grab;touch-action:none;padding:0}
+#orb span{font-size:11px;align-self:center}#orb:active{cursor:grabbing!important}
+/* Native resize can precede the IPC state update; never stretch the orb to fill it. */
+body:is(.book,.pinned).collapsed #orb{width:52px;height:52px;right:auto;bottom:auto}
+.shell-transition :is(header,.page-heading,#tools,#side-menu,#resize-handle,#resize-left){visibility:hidden;pointer-events:none}
+.shell-transition #workspace{pointer-events:none}
+.shell-preparing #workspace{visibility:hidden}
+#transition-orb{display:none;pointer-events:none}
+body:not(.collapsed).shell-transition #transition-orb{display:flex;position:absolute;left:calc(var(--button-x) - 8px);top:calc(var(--button-y) - 8px);width:52px;height:52px;align-items:center;justify-content:center;gap:1px;padding:0;border:1px solid #d9d2b8;border-radius:50%;background:radial-gradient(circle at 30% 24%,#fffdf3,#e8dfbc);box-shadow:0 3px 5px #352c222b;font-size:15px;color:#716f53;opacity:0}
+body.shell-preparing #transition-orb{opacity:1!important}
+#transition-orb span{font-size:11px}
+.motion-busy :is(#tools,#side-menu,#resize-left){pointer-events:none;visibility:hidden}
+.ai #toast{top:96px;bottom:auto}
+.ai>:not(#ai-dialog):not(#settings-dialog):not(#toast){display:none!important}
+.ai #ai-dialog{position:absolute;inset:8px;margin:0;width:calc(100% - 16px);height:calc(100% - 16px);max-width:none;max-height:none;padding:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 3px 8px #302b1920}
+.ai-heading{display:flex;justify-content:space-between;align-items:center;flex-shrink:0}.ai-heading h2{font-size:17px;margin:0}.ai-heading button{font-size:20px}
+.ai-heading-actions{display:flex;align-items:center;gap:5px}.ai-heading #ai-settings{font-size:12px;white-space:nowrap;padding:6px 9px;background:#ecece155}
+.ai-heading #ai-settings:hover{background:#e4e5d9}.ai #destination{flex-shrink:0}
+.ai-target{font-size:11px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #e1ddce;padding-bottom:8px;flex-shrink:0}.ai-target span{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.ai-target button{font-size:10px;white-space:nowrap}
+.ai-scroll{flex:1;min-height:0;overflow:auto;padding-right:4px}.ai-scroll h3{font-size:16px;font-weight:500;margin:14px 0 0}.ai-scroll p{font-size:11px}.ai-scroll .upload{padding:10px;margin-top:8px}.ai-scroll #ai-result{height:145px;min-height:100px}.ai-actions{flex-shrink:0;border-top:1px solid #e1ddce;padding-top:8px;margin-top:8px;font-size:11px}.ai-actions .dialog-actions{margin-top:0;justify-content:space-between;gap:3px}.ai-actions #import-target{margin-top:9px;max-width:62%}.ai-actions>.dialog-actions:last-child{float:right;margin-top:9px}.ai-actions button,.ai-actions select{padding:7px;font-size:11px}.ai #toast{bottom:15px;font-size:11px}
+/* Compact tools: frequent actions first, preferences disclosed on demand. */
+body:is(.book,.pinned) #side-menu{bottom:auto;max-height:calc(100% - 26px);padding:10px;border-radius:12px;background:#faf8f1f5;box-shadow:0 4px 16px #302b1914;scrollbar-width:thin;scrollbar-color:#c9c5b7 transparent}
+#side-menu #toolbar{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:0;padding-bottom:9px;border-bottom:1px solid #e7e3d8}
+#side-menu #toolbar button{font-size:12px;background:transparent;padding:7px 3px;min-height:30px;border-radius:6px}
+#side-menu #toolbar button:hover{background:#ebece1}
+#side-menu #side-controls{align-items:center;gap:2px;margin:0 0 9px;padding:5px 0;border-bottom:1px solid #e7e3d8}
+#side-controls button{padding:5px 8px;font-size:12px;min-height:28px}
+#side-controls #settings{margin-left:auto}
+#side-menu .appearance{display:grid;grid-template-columns:30px 1fr 46px;gap:6px;align-items:center;margin:0 0 10px}
+#side-menu .appearance>*{min-width:0;width:100%;height:28px;margin:0}
+#side-menu .appearance select{font-size:11px;padding:3px;border-color:#e4e0d5;border-radius:5px}
+#side-menu .appearance button{padding:3px;font-size:12px}
+#side-menu .appearance #font{grid-column:2}#side-menu .appearance #size{grid-column:3}
+#side-menu .appearance #color{grid-column:1;grid-row:1}
+#side-menu .appearance #ink{grid-column:1;grid-row:2}
+#side-menu .appearance #align{grid-column:2;grid-row:2}
+#side-menu .appearance #bold{grid-column:3;grid-row:2;font-weight:700}
+#side-menu .appearance #texture{grid-column:2;grid-row:3}
+#side-menu .appearance #shape{grid-column:2;grid-row:4}
+#side-menu .appearance #todo{grid-column:1;grid-row:3}
+#side-menu .appearance #lock{grid-column:3;grid-row:3;font-size:11px}
+#side-menu .appearance #format-scope{grid-column:1;grid-row:4;font-size:9px;color:#93917f;height:auto;text-align:center}
+#side-menu footer{gap:4px;margin:0;padding:0 0 9px;border-bottom:1px solid #e7e3d8}
+#side-menu footer button{flex:1;padding:7px 2px;font-size:11px}
+#side-menu footer #save-state{display:none}
+#tool-options{font-size:11px;color:#777867}
+#tool-options summary{cursor:pointer;padding:9px 2px 1px;list-style:none;display:flex;justify-content:space-between}
+#tool-options summary:after{content:'＋'}#tool-options[open] summary:after{content:'−'}
+#side-menu #tool-options label{font-size:11px;margin:9px 0}
+#tool-options .default-actions{display:flex;gap:4px;padding-top:3px}
+#tool-options .default-actions button{font-size:11px;padding:5px}
+.shelf h1{font-size:17px;font-weight:500;margin:7px 0 14px}
+.shelf #shelf-area{scrollbar-width:thin;scrollbar-color:#c9c5b7 transparent}
+.shelf #search-scope{width:110px;margin:0;flex-shrink:0}
+.shelf .search-row{display:flex;gap:7px;margin-bottom:10px}
+.shelf #search{min-width:0;flex:1}
+.shelf #balls{padding:14px 0;min-height:90px;gap:12px}
+.shelf #drop-bin{padding:11px;border-radius:8px;font-size:12px}
+.shelf .empty{padding:20px 0;font-size:12px}
+.ai .upload{padding:18px 10px!important;background:#ffffff66}
+.ai .upload input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+.ai .upload:focus-within{outline:2px solid #64795a;outline-offset:2px}
+.ai #destination{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:10px;margin:8px 0}
+#settings-dialog{max-width:390px;padding:18px;scrollbar-width:thin}
+#settings-dialog h2{font-size:18px;font-weight:500}
+#settings-dialog fieldset{min-width:0;border:0;padding:0;margin:16px 0 0}
+#settings-dialog legend{font-size:12px;font-weight:600;color:#616650;padding:0}
+#settings-dialog #general-settings-group{border-top:1px solid #e4e0d5;padding-top:9px}
+#settings-dialog #key-status{margin:8px 0 0}
+.ai #settings-dialog #general-settings-group,.ai #settings-dialog .backup-actions,.ai #ai-settings-group legend{display:none}
+.ai #settings-dialog #ai-settings-group{margin-top:0}
+#settings-dialog label{margin-top:10px}#settings-dialog .dialog-actions{margin-top:12px}
+#side-menu .appearance #format-scope{display:none}
+.ai #toast{top:96px;bottom:auto}
+dialog{color:inherit;font-family:inherit}.ai-heading h2{font-weight:500}
+.result-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}.result-heading button{font-size:11px;padding:4px 8px}
+#split-preview{margin-top:8px}.split-controls,.split-navigation{display:flex;align-items:center;gap:6px;margin:7px 0;justify-content:space-between;font-size:11px}
+#split-text{display:block;width:100%;height:170px;resize:vertical;border:1px solid #dcdccd;border-radius:7px;background:#fff9;padding:10px;font-size:12px;line-height:1.8}
+#split-count{font-variant-numeric:tabular-nums;color:#777867}.split-navigation button{padding:3px 11px}
+#shortcut-options{border-top:1px solid #e4e0d5;border-bottom:1px solid #e4e0d5;padding:9px 0;margin:12px 0;font-size:12px}
+#shortcut-options summary{cursor:pointer}#shortcut-options .shortcut-field{display:flex;align-items:center;gap:4px}
+#shortcut-options .shortcut-field input{margin-top:5px;min-width:0;flex:1;font-family:Consolas,'Microsoft YaHei UI',monospace;font-size:12px;cursor:pointer}
+#shortcut-options .shortcut-field button{flex-shrink:0}#shortcut-status{font-size:11px;margin:8px 0 0}
+
+.paper-presets{display:grid;gap:8px;margin-bottom:8px}#paper-colors{display:flex;gap:7px}#paper-colors button{width:23px;height:23px;border:1px solid #bdb6a7;border-radius:50%;padding:0}#paper-colors button:hover{outline:2px solid #8b967c;outline-offset:2px}.volume-row{display:flex;align-items:center;gap:8px}.volume-row input{flex:1;min-width:0}.volume-row button{font-size:11px;padding:4px 8px}
+
+/* Only the paper surface scales; floating controls retain comfortable targets. */
+body:is(.book,.pinned) #sheet{position:absolute;left:0;top:44px;margin:0;flex:none;width:var(--sheet-w,346px);height:var(--sheet-h,392px);transform:scale(var(--paper-zoom,1))!important;transform-origin:0 0}
+body:is(.book,.pinned) .paper-stack{right:auto;bottom:auto;width:var(--sheet-w,346px);height:var(--sheet-h,392px);transform:translateY(3px) scale(var(--paper-zoom,1));transform-origin:0 0}
+body:is(.book,.pinned) .paper-stack:nth-of-type(2){transform:translateY(6px) scale(var(--paper-zoom,1))}
+.zoom-controls{display:flex;align-items:center;justify-content:center;gap:8px;padding:2px 0 8px;border-bottom:1px solid #e7e3d8}
+.zoom-controls button{font-size:12px;min-height:28px;padding:4px 8px}.zoom-controls #zoom-reset{min-width:54px;font-variant-numeric:tabular-nums}
+#side-menu .appearance #font{grid-column:2 / 4}
+body:is(.book,.pinned).compact-paper header #side-controls{gap:1px}
+body:is(.book,.pinned).compact-paper header #side-controls button{width:24px;height:24px;min-height:24px}
+body:is(.book,.pinned).compact-paper .page-heading{font-size:9px}
+body:is(.book,.pinned).compact-paper .page-heading button{padding:4px}

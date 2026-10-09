@@ -1,0 +1,6 @@
+const {_electron:electron}=require('@playwright/test');
+const path=require('node:path'),assert=require('node:assert/strict');
+ (async()=>{const executablePath=path.resolve(`dist/PaperDesk-${require('../package.json').version}-win32-x64/PaperDesk.exe`),profile=path.resolve('test-results','portable-'+Date.now()),env={...process.env};delete env.ELECTRON_RUN_AS_NODE;let app;try{
+  const start=async()=>{app=await electron.launch({executablePath,args:['--user-data-dir='+profile],env});const p=await app.firstWindow();await p.locator('#text[contenteditable=true]').waitFor();return p;};
+  let page=await start();await page.locator('#text').fill('便携版独立运行验证');await page.locator('#tools').click();await page.locator('#bold').click();const state=await page.evaluate(()=>window.desk.call('state'));assert.equal(state.pages[0].text,'便携版独立运行验证');assert.equal(state.pages[0].bold,true);assert((await app.evaluate(({app})=>app.getAppPath())).includes('dist'));await app.close();page=await start();assert.equal(await page.locator('#text').evaluate(e=>e.value),'便携版独立运行验证');console.log('PASS: standalone executable loads packaged app and preserves content across restart');
+}finally{if(app)await app.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

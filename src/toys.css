@@ -1,0 +1,18 @@
+.sling-window #desktop-object,.bin-window #desktop-object{inset:0;border-radius:0;opacity:.85;filter:drop-shadow(1px 3px 2px #302b1924);transition:opacity .15s ease,filter .15s ease}
+.sling-window #desktop-object:is(:hover,:focus-visible),.bin-window #desktop-object:is(:hover,:focus-visible),.sling-window:is(.aiming,.loaded) #desktop-object,.bin-window:is(.drop-ready,.aim-target) #desktop-object{opacity:1}
+.sling-window #desktop-object:active{cursor:grabbing}.sling-window.aiming #desktop-object{cursor:crosshair}
+.sling-window #sling-bands,.sling-window #sling-front-band{stroke-linecap:round;fill:none}
+.sling-window #unload{right:9px;bottom:25px;border-radius:50%;width:27px;height:27px;padding:0;font-size:18px;opacity:.4;background:#faf7edaa}
+.sling-window #unload:is(:hover,:focus-visible){opacity:1;background:#faf7ed}
+.bin-window #basket{transform-box:view-box;transform-origin:185px 202px}
+.bin-window #bin-mouth,.bin-window #bin-lip-front{transition:stroke .15s ease,filter .15s ease}
+.bin-window:is(.drop-ready,.aim-target) #bin-mouth,.bin-window:is(.drop-ready,.aim-target) #bin-lip-front{stroke:#94b77a;filter:drop-shadow(0 0 3px #8ebd6b99)}
+.bin-window.drop-ready #desktop-object{filter:drop-shadow(1px 3px 2px #302b1924)}
+.bin-window.hit #desktop-object,.bin-window.drop-ready .lid{animation:none;transform:none}
+.bin-window.tipped #desktop-object{cursor:pointer}
+#bin-shadow{transition:cx .45s ease,rx .45s ease}
+#bin-fill image{pointer-events:none}
+.toy-still *{transition:none!important}
+.sling-window.loaded #desktop-object{cursor:grab}
+
+.sling-window.aiming #desktop-object{cursor:crosshair}
